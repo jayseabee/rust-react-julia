@@ -10,7 +10,7 @@
 - Combine rust and react when you want beauty and speed in your life for applications in scientific computing, data science and gaming
 - We will build a Rust Actix server & React app and get them to talk to each other to demonstrate how you can harness these two frameworks
 
-See the medium article for more details.
+See the [medium article](https://medium.com/@Jayseabee/rust-react-part-i-3a33c3da9ca0) for more details.
 
 # Running the app
 
@@ -29,4 +29,4 @@ If you want to test the Julia Set generator you can use the `julia_test` in `jul
 
 ## React App
 
-To run the app in development mode go for `npm run build` followed by `serve -s build`. But if you are experimenting then just go for `npm start` to run in development mode.
+To run the app in development mode go for `npm run build` followed by `serve -s build`, in the `react-app/` directory. But if you are experimenting then just go for `npm start` to run in development mode.
