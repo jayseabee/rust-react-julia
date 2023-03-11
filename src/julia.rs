@@ -58,6 +58,7 @@ mod tests {
     use super::*;
     use image::{ImageBuffer, Rgb};
     use std::time::{Instant};
+    use rand::{distributions::Uniform, Rng};
 
     fn save_image(rgb: Vec<u8>, width: u32, height: u32, fname: String) -> bool {
         let mut img = ImageBuffer::new(width as u32, height as u32);
@@ -75,7 +76,7 @@ mod tests {
     }
 
     #[test]
-    fn julia_test() {
+    fn julia_save_png() {
         let start = Instant::now();
 
         let params = JuliaParams {
@@ -85,8 +86,35 @@ mod tests {
             cy: 0.05543246580171968,
         };
         let v = julia_generate(&params);
-        println!("Julie set: {:?}", start.elapsed());
+        println!("Julia set generation: cx: {:.3}, cy: {:.3}, time: {:.2?}", 
+            params.cx, params.cy, start.elapsed());
 
         assert!(save_image(v, params.width, params.height, "julia-set.png".to_string()));
+    }
+
+    #[test]
+    fn julia_speed() {
+
+        let mut params = JuliaParams {
+            width: 800,
+            height: 500,
+            cx: 0.0,
+            cy: 0.0
+        };
+
+        let mut rng = rand::thread_rng();
+        let cx_range = Uniform::new(-0.9, 0.9);
+        let cy_range = Uniform::new(-0.9, 0.9);
+
+        for _i in 0..10 {
+            params.cx = rng.sample(&cx_range);
+            params.cy = rng.sample(&cy_range);
+            let start = Instant::now();
+            let _v = julia_generate(&params);
+            println!("Julia set generation: cx: {:.3}, cy: {:.3}, time: {:.2?}", 
+                params.cx, params.cy, start.elapsed());
+        }
+
+        assert!(true);
     }
 }

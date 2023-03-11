@@ -7,10 +7,7 @@
      height=300>
 </p>
 
-- Combine rust and react when you want beauty and speed in your life for applications in scientific computing, data science and gaming
-- We will build a Rust Actix server & React app and get them to talk to each other to demonstrate how you can harness these two frameworks
-
-See the [medium article](https://medium.com/@Jayseabee/rust-react-part-i-3a33c3da9ca0) for more details.
+See the [medium article](https://medium.com/@Jayseabee/rust-react-part-i-3a33c3da9ca0) for overview.
 
 # Running the app
 

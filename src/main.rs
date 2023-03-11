@@ -3,7 +3,7 @@ use actix_web::middleware::Logger;
 use actix_cors::Cors;
 use actix_rt;
 
-mod handler;
+mod ws_handler;
 
 mod julia;
 use julia::{JuliaParams, julia_generate};
@@ -23,11 +23,12 @@ pub enum ResponseType {
    Code
 }
 
-async fn echo_ws(req: HttpRequest, stream: web::Payload) -> Result<HttpResponse, Error> {
+async fn julia_ws(req: HttpRequest, stream: web::Payload) -> Result<HttpResponse, Error> {
     let (res, session, msg_stream) = actix_ws::handle(&req, stream)?;
 
-    // spawn websocket handler (and don't await it) so that the response is returned immediately
-    actix_rt::spawn(handler::echo_ws(session, msg_stream));
+    // spawn websocket handler (and don't await it) so that 
+    // the response is returned immediately
+    actix_rt::spawn(ws_handler::julia_ws(session, msg_stream));
 
     Ok(res)
 }
@@ -58,7 +59,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .wrap(Logger::new("%a %{User-Agent}i"))
             .service(get_julia_image)
-            .service(web::resource("/ws").route(web::get().to(echo_ws)))
+            .service(web::resource("/ws").route(web::get().to(julia_ws)))
             
         }) 
         .bind(("127.0.0.1", 8080))?

@@ -10,7 +10,7 @@ use futures_util::{
 use serde_json;
 use crate::julia::{JuliaParams, julia_generate};
 
-pub async fn echo_ws(mut session: actix_ws::Session, mut msg_stream: actix_ws::MessageStream) {
+pub async fn julia_ws(mut session: actix_ws::Session, mut msg_stream: actix_ws::MessageStream) {
     log::info!("connected");
 
     let close_reason = loop {
